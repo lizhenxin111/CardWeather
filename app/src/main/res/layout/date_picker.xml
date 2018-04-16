@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="250dp"
+    android:layout_height="440dp"
+    android:orientation="vertical"
+    android:elevation="8dp">
+    <DatePicker
+        android:id="@+id/picker"
+        android:layout_width="250dp"
+        android:layout_height="400dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <Button
+        android:id="@+id/cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:text="@string/date_picker_month"
+        android:textColor="@color/colorAccent"
+        android:background="@android:color/transparent"
+        app:layout_constraintTop_toBottomOf="@id/picker"
+        app:layout_constraintRight_toLeftOf="@id/done"/>
+    <Button
+        android:id="@+id/done"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:text="@string/string_done"
+        android:textColor="@color/colorAccent"
+        android:background="@android:color/transparent"
+        app:layout_constraintTop_toBottomOf="@id/picker"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+</android.support.constraint.ConstraintLayout>

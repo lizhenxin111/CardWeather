@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animator xmlns:android="http://schemas.android.com/apk/res/android"
+    android:valueTo="10dp"
+    android:valueType="floatType"
+
+    android:duration="2000"
+    android:fillBefore="false"
+    android:fillAfter="true"
+    android:fillEnabled="true"
+    android:interpolator="@android:anim/accelerate_decelerate_interpolator">
+
+</animator>
