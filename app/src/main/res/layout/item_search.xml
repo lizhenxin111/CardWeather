@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    <Spinner
+        android:id="@+id/selector_type"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_weight="1.5"
+        android:entries="@array/typeSpinnerArray" />
+
+    <TextView
+        android:id="@+id/selector_input"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_weight="1"
+        android:hint="@string/hint_select_input"
+        android:gravity="center_vertical"/>
+
+    <TextView
+        android:id="@+id/selector_date"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_weight="1"
+        android:hint="@string/hint_date"
+        android:textAlignment="center" />
+
+    <TextView
+        android:id="@+id/selector_hour"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_weight="1"
+        android:hint="@string/hint_hour"
+        android:gravity="center_vertical|left" />
+</LinearLayout>

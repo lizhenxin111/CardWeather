@@ -1,8 +1,16 @@
 package utils;
 
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 
 public class DateUtil {
+
+    private static final Integer[] MONTH_SHORT_ARRAY = new Integer[]{4, 6, 9, 11};
+
+    private static final List MONTH_SHORT = Arrays.asList(MONTH_SHORT_ARRAY);
+
+
     private static Calendar c = Calendar.getInstance();
 
     public static int getYear() {
@@ -38,11 +46,28 @@ public class DateUtil {
         return add0(minute > 47 ? hour : hour - 1);
     }
 
-    private static String add0(int c) {
+    public static String add0(int c) {
         String result = c + "";
         if (c < 10) {
             result = "0" + result;
         }
         return result;
+    }
+
+    public static String add0(String c) {
+        if (c.length() == 1) {
+            c = "0" + c;
+        }
+        return c;
+    }
+
+    public static int getDaysInMonth(int year, int month) {
+        if (month == 2) {
+            return year % 100 != 0 && year% 4 == 0 ? 29 : 28;
+        }
+        if (MONTH_SHORT.contains(month)) {
+            return 30;
+        }
+        return 31;
     }
 }

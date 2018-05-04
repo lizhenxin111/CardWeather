@@ -10,6 +10,8 @@
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>
+
+        <item name="elevation">@dimen/design_appbar_elevation</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

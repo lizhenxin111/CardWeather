@@ -8,6 +8,7 @@ public class Site extends Base{
     private String quality;
     private String date;
     private String hour;
+    private String time;
     private float aqi;
     private float co;
     private float co_24h;
@@ -193,4 +194,11 @@ public class Site extends Base{
         this.so2_24h = so2_24h;
     }
 
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
 }

@@ -63,6 +63,13 @@ public class DiskCache {
         }
     }
 
+    public static boolean isClosed() {
+        if (cache != null && !cache.isClosed()) {
+            return false;
+        }
+        return true;
+    }
+
     public static void close() {
         if (cache != null && !cache.isClosed()) {
             CloseUtils.closeIO(cache);

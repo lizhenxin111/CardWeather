@@ -3,15 +3,12 @@ package base;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.pm.ActivityInfo;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 
 import com.lzx.cardweather.R;
 import com.orhanobut.logger.AndroidLogAdapter;
@@ -28,7 +25,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     private boolean canFullScreen = true;   //全屏开关
     private boolean allowScreenRoate = false;   //屏幕旋转开关
     private int clickInterval = 800;        //两次点击之间的时间间隔，单位毫秒，默认800
-    private boolean isSlideBack = false;        //是否滑动返回
+    private boolean isSlideBack = true;        //是否滑动返回
 
     private ToastUtil toastUtil = null;
 
@@ -75,6 +72,13 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
      * 初始化其他组件， 如Service、BroadcastReceiver等。可选择性重写
      */
     protected void initOtherComponent() { }
+
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+    }
 
     /**
      * 点击事件重写该方法以防止快速点击

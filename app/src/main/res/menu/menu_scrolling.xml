@@ -12,4 +12,14 @@
         android:orderInCategory="100"
         android:title="@string/action_change_order"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_conpare"
+        android:orderInCategory="100"
+        android:title="@string/action_conpare"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title="@string/action_setting"
+        app:showAsAction="never" />
 </menu>

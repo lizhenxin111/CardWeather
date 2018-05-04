@@ -13,6 +13,7 @@ import com.orhanobut.logger.Logger;
 import utils.ToastUtil;
 
 public abstract class BaseFragment extends Fragment {
+
     private boolean isLog = true;
     private ToastUtil toastUtil = null;
 
@@ -39,6 +40,8 @@ public abstract class BaseFragment extends Fragment {
 
     protected abstract void initData(@Nullable Bundle savedInstanceState);
 
+    public void onBackPressed() {
+    }
     /**
      * Log
      * @param info

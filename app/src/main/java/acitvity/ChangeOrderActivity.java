@@ -10,7 +10,6 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 
 import com.google.gson.Gson;
 import com.lzx.cardweather.R;
-import com.orhanobut.logger.Logger;
 
 import java.util.Collections;
 import java.util.List;
@@ -19,6 +18,7 @@ import adapter.recycler.ChangeOrderAdapter;
 import base.BaseActivity;
 import bean.card.CardAttr;
 import bean.card.CardAttrList;
+import utils.AppContext;
 import utils.AppPref;
 
 public class ChangeOrderActivity extends BaseActivity {
@@ -34,6 +34,13 @@ public class ChangeOrderActivity extends BaseActivity {
     @Override
     protected int getLayoutId() {
         return R.layout.activity_change_order;
+    }
+
+    @Override
+    protected void beforeSetContentView() {
+        setAllowScreenRoate(false);
+        setCanFullScreen(false);
+        setSlideBack(true);
     }
 
     @Override
@@ -55,7 +62,7 @@ public class ChangeOrderActivity extends BaseActivity {
     @Override
     protected void initOtherComponent() {
         localBroadcastManager = LocalBroadcastManager.getInstance(this);
-        broadcastIntent = new Intent("broadcast_local_change_order");
+        broadcastIntent = new Intent(AppContext.ACTION_CHANGE_ORDER);
     }
 
     @Override
@@ -111,7 +118,6 @@ public class ChangeOrderActivity extends BaseActivity {
         @Override
         protected List<CardAttr> doInBackground(Void... voids) {
             String json = AppPref.getCardList();
-            Logger.json(json);
             CardAttrList list = new Gson().fromJson(json, CardAttrList.class);
             return list.getList();
         }
@@ -119,7 +125,7 @@ public class ChangeOrderActivity extends BaseActivity {
         @Override
         protected void onPostExecute(List<CardAttr> list) {
             super.onPostExecute(list);
-            adapter.setData(list);
+            adapter.requestData(list);
         }
     }
 }

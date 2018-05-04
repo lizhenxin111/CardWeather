@@ -13,6 +13,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
             "quality VARCHAR(10)," +
             "date CHAR(8)," +
             "hour CHAR(2)," +
+            "time CHAR(20)," +
             "aqi FLOAT," +
             "co FLOAT," +
             "no2 FLOAT," +
@@ -29,6 +30,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
             "quality VARCHAR(10)," +
             "date CHAR(8)," +
             "hour CHAR(2)," +
+            "time CHAR(20)," +
             "aqi FLOAT," +
             "co FLOAT," +
             "no2 FLOAT," +

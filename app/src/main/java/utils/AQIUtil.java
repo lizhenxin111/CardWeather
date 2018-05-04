@@ -30,7 +30,9 @@ public class AQIUtil {
     }
 
     public static String getLevel(int aqi) {
-        if (aqi>=0 && aqi<=50) {
+        if (aqi == 0) {
+            return getString(R.string.str_aqi_data_error);
+        } else if (aqi>0 && aqi<=50) {
             return getString(R.string.str_aqi_perfect);
         } else if (aqi>=50 && aqi<=100) {
             return getString(R.string.str_aqi_good);
@@ -52,5 +54,43 @@ public class AQIUtil {
 
     private static String getString(@StringRes int resId) {
         return Utils.getApp().getResources().getString(resId);
+    }
+
+    public static String getInfluence(int aqi) {
+        if (aqi == 0) {
+            return getString(R.string.str_aqi_data_error);
+        } else if (aqi>0 && aqi<=50) {
+            return getString(R.string.aqi_influence_1);
+        } else if (aqi>=50 && aqi<=100) {
+            return getString(R.string.aqi_influence_2);
+        } else if (aqi>=100 && aqi<=150) {
+            return getString(R.string.aqi_influence_3);
+        } else if (aqi>=150 && aqi<=200) {
+            return getString(R.string.aqi_influence_4);
+        } else if (aqi>=200 && aqi<=300) {
+            return getString(R.string.aqi_influence_5);
+        } else if (aqi>300) {
+            return getString(R.string.aqi_influence_6);
+        }
+        return getString(R.string.str_aqi_0);
+    }
+
+    public static String  getMeasure(int aqi) {
+        if (aqi == 0) {
+            return getString(R.string.str_aqi_data_error);
+        } else if (aqi>0 && aqi<=50) {
+            return getString(R.string.aqi_measure_1);
+        } else if (aqi>=50 && aqi<=100) {
+            return getString(R.string.aqi_measure_2);
+        } else if (aqi>=100 && aqi<=150) {
+            return getString(R.string.aqi_measure_3);
+        } else if (aqi>=150 && aqi<=200) {
+            return getString(R.string.aqi_measure_4);
+        } else if (aqi>=200 && aqi<=300) {
+            return getString(R.string.aqi_measure_5);
+        } else if (aqi>300) {
+            return getString(R.string.aqi_measure_6);
+        }
+        return getString(R.string.str_aqi_0);
     }
 }

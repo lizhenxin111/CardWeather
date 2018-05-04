@@ -6,7 +6,7 @@ import bean.heweather.Update;
 public class Weather {
     private Basic basic;
     private Now now;
-    private String statuc;
+    private String status;
     private Update update;
 
     public Basic getBasic() {
@@ -26,11 +26,11 @@ public class Weather {
     }
 
     public String getStatuc() {
-        return statuc;
+        return status;
     }
 
     public void setStatuc(String statuc) {
-        this.statuc = statuc;
+        this.status = statuc;
     }
 
     public Update getUpdate() {

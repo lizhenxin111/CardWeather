@@ -5,10 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.support.v4.util.ArrayMap;
-import android.support.v4.widget.NestedScrollView;
-import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -18,16 +15,14 @@ import java.util.Collections;
 
 public class CardLineChart extends BaseCard {
 
-    private String title = null;
 
-    private String xUnit = null;
-    private String yUnit = null;
+    private String xUnit, yUnit = null;                 //横纵坐标的单位
+    private ArrayMap<String, Integer> data = null;      //横--纵坐标集合。横坐标为时间，纵坐标为aqi
 
-    private ArrayMap<Integer, Integer> data = null;
 
     private int mDis = 0;   //子控件宽度 和 父控件可显示区域 的差值
     private int pl = 0;     //父控件左边padding
-
+    private int margin = 0;
 
     private Paint textPaint = new Paint();
     private Paint linePaint = new Paint();
@@ -44,15 +39,6 @@ public class CardLineChart extends BaseCard {
         super(context, attrs, defStyleAttr);
     }
 
-    @Override
-    public String getTitle() {
-        return title;
-    }
-
-    @Override
-    public void setTitle(String title) {
-        this.title = title;
-    }
 
     public String getxUnit() {
         return xUnit;
@@ -71,37 +57,44 @@ public class CardLineChart extends BaseCard {
         invalidate();
     }
 
-    public ArrayMap<Integer, Integer> getData() {
+    public ArrayMap<String, Integer> getData() {
         return data;
     }
 
-    public void setData(ArrayMap<Integer, Integer> data) {
+    public void requestData(ArrayMap<String, Integer> data) {
         this.data = data;
         invalidate();       //重新绘制（onDraw）
         requestLayout();    //刷新数据
     }
 
+    public void releaseData() {
+        if (data != null) {
+            data.clear();
+        }
+    }
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        if (data!=null && data.size()!=0) {
-            setMeasuredDimension(data.size() * 80 + 200, 200);
+        if (data!=null && data.size()>12) {
+            width = data.size() * dp(80);
+            setMeasuredDimension(width, height);
         }
     }
 
     @Override
     protected void drawContent(Canvas canvas) {
-        int selfWidth = getMeasuredWidth();
+        margin = getLeft();
+        int selfWidth = width;
         int parentWidth = ((View) getParent()).getMeasuredWidth();
         pl = ((View) getParent()).getPaddingLeft();
         int pR = ((View) getParent()).getPaddingRight();
-        Log.d("SCROLL", "自己：" + selfWidth + "   父控件：" + parentWidth + "   左：" + SizeUtils.px2dp(pl) + "   右：" + pR);
 
-        mDis = selfWidth - (parentWidth - pl - pR);
+        mDis = selfWidth - (parentWidth - pl - pR - margin);
 
 
         canvas.save();
-        canvas.translate(50, 170);
+        canvas.translate(dp(40), height - dp(30));
 
         drawCoordinateSystem(canvas);
         drawLines(canvas);
@@ -114,26 +107,26 @@ public class CardLineChart extends BaseCard {
      */
     private void drawCoordinateSystem(Canvas c) {
         linePaint.setColor(Color.BLACK);
-        linePaint.setStrokeWidth(2);
+        linePaint.setStrokeWidth(dp(1));
         linePaint.setStyle(Paint.Style.STROKE);
-        int x = getMeasuredWidth() - 30;
-        int y = -getMeasuredHeight() + 70;
+        int x = width - dp(40) - dp(40);
+        int y = -height + dp(50) + dp(8);
         //横轴
         c.drawLine(0, 0,
-                x - 30, 0,
+                x, 0,
                 linePaint);
-        c.drawLine(x - 30, 0.5f,
-                x-35, 3,
+        c.drawLine(x, 0.5f,
+                x-5, 3,
                 linePaint);
-        c.drawLine(x - 30, -0.5f,
-                x-34, -3,
+        c.drawLine(x, -0.5f,
+                x-4, -3,
                 linePaint);
         if (xUnit != null) {
-            textPaint.setTextSize(10);
+            textPaint.setTextSize(SizeUtils.sp2px(8));
             textPaint.setTextAlign(Paint.Align.LEFT);
             textPaint.setColor(Color.BLACK);
             c.drawText(xUnit,
-                    x - 30, 13,
+                    x - 3, dp(15),
                     textPaint);
         }
 
@@ -148,7 +141,7 @@ public class CardLineChart extends BaseCard {
                 3, y+4,
                 linePaint);
         if (yUnit != null) {
-            textPaint.setTextSize(10);
+            textPaint.setTextSize(SizeUtils.sp2px(8));
             textPaint.setTextAlign(Paint.Align.RIGHT);
             textPaint.setColor(Color.BLACK);
             c.drawText(yUnit,
@@ -167,116 +160,112 @@ public class CardLineChart extends BaseCard {
             return;
         }
 
-        if (data.size() < 12) {
-            int num = data.size();
-            linePaint.setColor(Color.BLACK);
-            linePaint.setStrokeWidth(2);
-            linePaint.setStyle(Paint.Style.STROKE);
-            //每个刻度的间隔
-            int xDis = (getMeasuredWidth() - 100) / (num  - 1);
-            //起始刻度
-            int xBase = 20;
-            int yBase = -10;
+        linePaint.setStrokeWidth(4);
+        linePaint.setColor(Color.RED);
+        textPaint.setColor(Color.BLACK);
+        textPaint.setTextSize(sp(10));
 
-            int scale = getScale();
+        int num = data.size();
 
-
-            //起点
+        if (num == 1) {
+            //画线
+            /*c.drawLine(xBase + (i-1)*xDis, -py/scale,
+                    xBase + i*xDis,  - y/scale,
+                    linePaint);*/
             textPaint.setTextAlign(Paint.Align.CENTER);
-            textPaint.setTextSize(15);
-            //值
+            //点的值
             c.drawText(data.valueAt(0) + "",
-                    xBase, yBase - (data.valueAt(0))/scale,
+                    width / 2, -(data.valueAt(0) + dp(5))/getScale(),
                     textPaint);
-            //横
-            c.drawText(data.keyAt(0)+"",
-                    xBase, 15,
+            linePaint.setColor(Color.LTGRAY);
+            c.drawLine(width / 2, -(data.valueAt(0) + dp(5))/getScale(),
+                    width / 2, 0,
+                    linePaint);
+            //横坐标
+            c.drawText(data.keyAt(0),
+                    width / 2, dp(15),
                     textPaint);
+            return;
+        }
 
-            //当前点---前一个点 画直线
-            for (int i = 1; i < num; i++) {
-                int x = data.keyAt(i);
-                int y = data.valueAt(i);
-
-                int px = data.keyAt(i-1);
-                int py = data.valueAt(i-1);
-
-                //画线
-                c.drawLine(xBase + (i-1)*xDis, -py/scale,
-                        xBase + i*xDis,  - y/scale,
-                        linePaint);
-                textPaint.setTextAlign(Paint.Align.CENTER);
-                //点的值
-                c.drawText(y + "",
-                        xBase + i*xDis, (yBase - y)/scale,
-                        textPaint);
-                //横坐标
-                c.drawText(x+"",
-                        xBase + i*xDis, 15,
-                        textPaint);
-                textPaint.setTextAlign(Paint.Align.RIGHT);
-
-            }
+        int xDis;       //每个刻度的间隔: 总长度-两边padding / 数据数量
+        if (num < 12) {
+            xDis = (width - dp(40) - dp(40)) / num;
         } else {
-            linePaint.setStrokeWidth(4);
-            linePaint.setColor(Color.RED);
-            textPaint.setColor(Color.GREEN);
-            textPaint.setTextSize(15);
+            xDis = (width - dp(40) - dp(40)) / num;
+        }
 
 
-            int num = data.size();
-            //每个刻度的间隔
-            int xDis = 80;
-            //起始刻度
-            int xBase = 20;
-            int yBase = -10;
 
-            int scale = getScale();
-            for (int i = 1; i < num; i++) {
-                int x = data.keyAt(i);
-                int y = data.valueAt(i);
+        //起始刻度
+        int xBase = dp(10);
 
-                int px = data.keyAt(i-1);
-                int py = data.valueAt(i-1);
+        //当前点的信息
+        String x = data.keyAt(0);
+        int y = data.valueAt(0);
+        int valueY = -(y + dp(5))/getScale();
+        //起点
+        //值
+        c.drawText(y+"",
+                xBase + xBase, valueY,
+                textPaint);
+        //横
+        c.drawText(x,
+                xBase + xBase, dp(15),
+                textPaint);
+        int scale = getScale();
+        for (int i = 1; i < num; i++) {
+            x = data.keyAt(i);
+            y = data.valueAt(i);
+            valueY = -(y + dp(5))/getScale();
 
-                //画线
-                c.drawLine(xBase + (i-1)*xDis, -py/scale,
-                        xBase + i*xDis,  - y/scale,
-                        linePaint);
-                textPaint.setTextAlign(Paint.Align.CENTER);
-                //点的值
-                c.drawText(y + "",
-                        xBase + i*xDis, (yBase - y)/scale,
-                        textPaint);
-                //横坐标
-                c.drawText(x+"",
-                        xBase + i*xDis, 15,
-                        textPaint);
-                textPaint.setTextAlign(Paint.Align.RIGHT);
+            String px = data.keyAt(i-1);
+            int py = data.valueAt(i-1);
 
-            }
+            //画线
+            c.drawLine(xBase + (i-1)*xDis, -py/scale,
+                    xBase + i*xDis,  - y/scale,
+                    linePaint);
+            textPaint.setTextAlign(Paint.Align.CENTER);
+            //点的值
+            c.drawText(y + "",
+                    xBase + i*xDis, valueY,
+                    textPaint);
+            //横坐标
+            c.drawText(x,
+                    xBase + i*xDis, dp(15),
+                    textPaint);
+            textPaint.setTextAlign(Paint.Align.RIGHT);
+
         }
     }
 
-    int lastX = 0;
+    float lastX = 0;
+    float lastY = 0;
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (data!=null && data.size()>12){
+        if (data!=null && data.size() > 12){
             int x = (int) event.getX();
+            int y = (int) event.getY();
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
                 lastX = x;
+                lastY = event.getY();
             } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
-                int offX = (int) event.getX() - lastX;      //滑动的距离
+                float offX = event.getX() - lastX;      //滑动的距离
                 int xNow = (int) getX();                    //当前时刻控件左边缘x值
                 //((NestedScrollView) (getParent().getParent())).setNestedScrollingEnabled(false);
+                if (Math.abs(event.getY() - y) > 10) {
+                    //return false;
+                }
                 if ((offX>0 && xNow<pl) || (offX<0 && xNow>-mDis)) {
-                    offsetLeftAndRight(offX);
+                    offsetLeftAndRight((int) offX);
                 }
             } else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
+                lastY = lastY  =0;
                 //view超出预定范围，将view归位
                 int xNow = (int) getX();
                 if (xNow >= pl) {
-                    setX(pl);
+                    setX(pl + margin);
                 } else if (xNow <= -mDis) {     //setX()的基准是屏幕y轴， 而不是父控件的左边，所以在设置边界是应当以屏幕边缘为基准
                     setX(-mDis + pl);
                 }
@@ -285,11 +274,11 @@ public class CardLineChart extends BaseCard {
             return true;
         }
 
-        if (Math.abs(getX() - lastX) > 10) {
+        if (Math.abs(getX() - lastX) > 20) {
             return false;
         } else {
-            return super.onTouchEvent(event);
         }
+        return super.onTouchEvent(event);
     }
     /**
      * 卡片的宽有限，所以当纵坐标过大时需要将其按比例缩小

@@ -6,9 +6,17 @@
 
     <string name="action_settings">Settings</string>
 
+    <string name="str_yes">是</string>
+    <string name="str_no">否</string>
+
+    <string name="select_location">点击选择城市</string>
+
     <string name="action_change_order">改变顺序</string>
     <string name="action_search">查询数据</string>
+    <string name="action_conpare">数据比较</string>
+    <string name="action_setting">应用设置</string>
 
+    <string name="str_aqi_data_error">数据有误</string>
     <string name="str_aqi_perfect">优</string>
     <string name="str_aqi_good">良</string>
     <string name="str_aqi_mild_pollutant">轻度污染</string>
@@ -23,17 +31,52 @@
     <string name="card_title_weather">实时天气</string>
     <string name="card_title_aqi_change">今日AQI变化</string>
     <string name="title_activity_scrolling">ScrollingActivity</string>
-    
+
+    <string name="time_day">白天</string>
+    <string name="time_night">夜晚</string>
+
     <string name="date_picker_month">本月</string>
     <string name="time_picker_day">全天</string>
     <string name="string_done">确定</string>
     <string name="notice_pick_hour">已选择获取本月数据，无法再选择小时选项</string>
+    <string name="notice_null">有选择项为空</string>
+    <string name="hint_select_input">选择城市或站点</string>
+    <string name="hint_date">日期</string>
+    <string name="hint_hour">小时</string>
+
+    <string name="aqi_influence_1">空气质量令人满意，基本无空气污染</string>
+    <string name="aqi_influence_2">空气质量可接受，但某些污染物可能对极少数异常敏感人群健康有较弱影响</string>
+    <string name="aqi_influence_3">易感人群症状有轻度加剧，健康人群出现刺激症状</string>
+    <string name="aqi_influence_4">进一步加剧易感人群症状，可能对健康人群心脏、呼吸系统有影响</string>
+    <string name="aqi_influence_5">心脏病和肺病患者症状显著加剧，运动耐受力降低，健康人群普遍出现症状</string>
+    <string name="aqi_influence_6">健康人群运动耐受力降低，有明显 强烈症状，提前出现某些疾病</string>
+
+    <string name="aqi_measure_1">各类人群可正常活动</string>
+    <string name="aqi_measure_2">极少数异常敏感人群应减少户外活动</string>
+    <string name="aqi_measure_3">儿童、老年人及心脏病、呼吸系统疾病患者应减少长时间、高强度的户外锻炼</string>
+    <string name="aqi_measure_4">儿童、老年人及心脏病、呼吸系统疾病患者避免长时间、高强度的户外锻练，一般人群适量减少户外运动</string>
+    <string name="aqi_measure_5">儿童、老年人和心脏病、肺病患者应停留在室内，停止户外运动，一般人群减少户外运动</string>
+    <string name="aqi_measure_6">儿童、老年人和病人应当留在室内，避免体力消耗，一般人群应避免户外活动</string>
+
+    <string name="life_comf">舒适度</string>
+    <string name="life_drsg">穿衣指数</string>
+    <string name="life_flu">流感指数</string>
+    <string name="life_sport">运动指数</string>
+    <string name="life_trav">旅游指数</string>
+    <string name="life_uv">紫外线指数</string>
+    <string name="life_cw">洗车指数</string>
+    <string name="life_air">空气指数</string>
+
+
+    <string name="no_internet">无网络连接~！</string>
+    <string name="generic_server_down">连接服务器失败~！</string>
+    <string name="generic_error">网络异常,请稍后再试~！</string>
 
     <string-array name="typeSpinnerArray">
         <item>城市</item>
         <item>站点</item>
     </string-array>
-    
+
     <string name="large_text">
         "Material is the metaphor.\n\n"
 
@@ -123,5 +166,78 @@
         "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
         "when a user tries to pick up one of cards.\n\n"
     </string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">General</string>
+
+    <string name="pref_title_social_recommendations">Enable social recommendations</string>
+    <string name="pref_description_social_recommendations">Recommendations for people to contact
+        based on your message history
+    </string>
+
+    <string name="pref_title_display_name">Display name</string>
+    <string name="pref_default_display_name">John Smith</string>
+
+    <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
+    <string-array name="pref_example_list_titles">
+        <item>Always</item>
+        <item>When possible</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_example_list_values">
+        <item>1</item>
+        <item>0</item>
+        <item>-1</item>
+    </string-array>
+
+    <!-- Example settings for Data & Sync -->
+    <string name="pref_header_data_sync">Data &amp; sync</string>
+
+    <string name="pref_title_sync_frequency">Sync frequency</string>
+    <string-array name="pref_sync_frequency_titles">
+        <item>15 minutes</item>
+        <item>30 minutes</item>
+        <item>1 hour</item>
+        <item>3 hours</item>
+        <item>6 hours</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_sync_frequency_values">
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>180</item>
+        <item>360</item>
+        <item>-1</item>
+    </string-array>
+
+    <string-array name="list_preference_entries">
+        <item>Entry 1</item>
+        <item>Entry 2</item>
+        <item>Entry 3</item>
+    </string-array>
+
+    <string-array name="list_preference_entry_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string-array name="multi_select_list_preference_default_value" />
+
+    <string name="pref_title_system_sync_settings">System sync settings</string>
+
+    <!-- Example settings for Notifications -->
+    <string name="pref_header_notifications">Notifications</string>
+
+    <string name="pref_title_new_message_notifications">New message notifications</string>
+
+    <string name="pref_title_ringtone">Ringtone</string>
+    <string name="pref_ringtone_silent">Silent</string>
+
+    <string name="pref_title_vibrate">Vibrate</string>
 
 </resources>

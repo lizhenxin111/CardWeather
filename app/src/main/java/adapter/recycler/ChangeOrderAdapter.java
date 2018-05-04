@@ -22,7 +22,7 @@ public class ChangeOrderAdapter extends RecyclerView.Adapter<ChangeOrderAdapter.
     public ChangeOrderAdapter() {
     }
 
-    public void setData(List<CardAttr> list) {
+    public void requestData(List<CardAttr> list) {
         this.list = list;
         notifyDataSetChanged();
     }

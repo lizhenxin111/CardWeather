@@ -41,15 +41,16 @@ public class TimeSelecter extends AppCompatDialog{
         });
 
         picker = findViewById(R.id.picker);
-        if (onHourSelectListener != null) {
-            findViewById(R.id.done).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dismiss();
+
+        findViewById(R.id.done).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+                if (onHourSelectListener != null) {
                     onHourSelectListener.onHourSelect(hour);
                 }
-            });
-        }
+            }
+        });
 
         findViewById(R.id.cancel).setOnClickListener(new View.OnClickListener() {
             @Override
