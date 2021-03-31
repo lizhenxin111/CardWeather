@@ -9,13 +9,14 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import bean.heweather.forecast.ForecastItem;
 import utils.BitmapUtil;
 
 public class CardWeatherForecast extends BaseCard {
 
-    private ArrayList<ForecastItem> data = new ArrayList<>();        //预测的天气数据
+    private List<ForecastItem> data = new ArrayList<>();        //预测的天气数据
     private OnForecastClickListener onForecastClickListener = null;
 
     private Paint textPaint;
@@ -36,7 +37,7 @@ public class CardWeatherForecast extends BaseCard {
         super(context, attrs, defStyleAttr);
     }
 
-    public void requestData(ArrayList<ForecastItem> data) {
+    public void requestData(List<ForecastItem> data) {
         this.data = data;
         invalidate();
     }
@@ -45,7 +46,7 @@ public class CardWeatherForecast extends BaseCard {
         this.onForecastClickListener = onForecastClickListener;
     }
 
-    public ArrayList<ForecastItem> getData() {
+    public List<ForecastItem> getData() {
         return data;
     }
 

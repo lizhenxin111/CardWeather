@@ -10,6 +10,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.blankj.utilcode.util.SizeUtils;
+import com.orhanobut.logger.Logger;
 
 import java.util.Collections;
 
@@ -240,11 +241,56 @@ public class CardLineChart extends BaseCard {
         }
     }
 
+
     float lastX = 0;
     float lastY = 0;
+
+    /*@Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        boolean intercept = false;
+
+        switch (ev.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                getParent().requestDisallowInterceptTouchEvent(true);       //禁止父布局处理事件
+                if (data!=null && data.size() > 12) {
+                    lastX = ev.getX();
+                    lastY = ev.getY();
+                }
+                Logger.d("down");
+                break;
+            case MotionEvent.ACTION_MOVE:
+                Logger.d("move");
+                if (data!=null && data.size() > 12){
+                    float offX = ev.getX() - lastX;      //滑动的距离
+                    float offy = ev.getY() - lastY;
+                    int xNow = (int) getX();                    //当前时刻控件左边缘x值
+
+                    *//*if (offX > offy && ((offX>0 && xNow<pl) || (offX<0 && xNow>-mDis))) {
+                        offsetLeftAndRight((int) offX);
+                    }*//*
+                    if (offX > offy) {
+                        Logger.d("横移");
+                        intercept = true;
+                        offsetLeftAndRight((int) offX);
+                    } else {
+                        Logger.d("竖移");
+                        intercept = false;
+                    }
+                }
+                break;
+            case MotionEvent.ACTION_UP:
+                Logger.d("up");
+                intercept = false;
+                break;
+            default: break;
+        }
+        return intercept;
+    }*/
+
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (data!=null && data.size() > 12){
+        /*if (data!=null && data.size() > 12){
             int x = (int) event.getX();
             int y = (int) event.getY();
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -277,7 +323,46 @@ public class CardLineChart extends BaseCard {
         if (Math.abs(getX() - lastX) > 20) {
             return false;
         } else {
+        }*/
+
+        if (data!=null && data.size() > 12){
+            int x = (int) event.getX();
+            int y = (int) event.getY();
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                lastX = x;
+                lastY = y;
+            } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
+                float offX = event.getX() - lastX;      //滑动的距离
+                float offy = event.getY() - lastY;
+                int xNow = (int) getX();                    //当前时刻控件左边缘x值
+                //((NestedScrollView) (getParent().getParent())).setNestedScrollingEnabled(false);
+                /*if (Math.abs(event.getY() - y) > 10) {
+                    //return false;
+                }*/
+                if (offX > offy && (offX>0 && xNow<pl) || (offX<0 && xNow>-mDis)) {
+                    getParent().requestDisallowInterceptTouchEvent(true);
+                    offsetLeftAndRight((int) offX);
+                }
+            } else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
+                lastY = lastY  =0;
+//                getParent().requestDisallowInterceptTouchEvent(false);
+                //view超出预定范围，将view归位
+                int xNow = (int) getX();
+                if (xNow >= pl) {
+                    setX(pl + margin);
+                } else if (xNow <= -mDis) {     //setX()的基准是屏幕y轴， 而不是父控件的左边，所以在设置边界是应当以屏幕边缘为基准
+                    setX(-mDis + pl);
+                }
+                //((NestedScrollView) (getParent().getParent())).setNestedScrollingEnabled(true);
+            }
+            return true;
         }
+
+        if (Math.abs(getX() - lastX) > 20) {
+            return false;
+        } else {
+        }
+
         return super.onTouchEvent(event);
     }
     /**

@@ -18,7 +18,7 @@ public class AppPref {
 
     public static String getCity() {
         SharedPreferences sp = Utils.getApp().getSharedPreferences(APP_PREF, Context.MODE_PRIVATE);
-        return sp.getString("city", null);
+        return sp.getString("city", "绵阳");
     }
 
     public static void setCardList(String list) {

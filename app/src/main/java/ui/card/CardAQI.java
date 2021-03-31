@@ -27,6 +27,7 @@ public class CardAQI extends BaseCard {
     private OnClickListener onAqiClick = null;      //AQI圆环的点击事件
 
     private String[] itemTags = new String[]{"O3","NO2","CO","SO2","PM10","PM2.5"};     //空气污染物绘制的顺序
+
     private boolean isExpand = false;               //卡片是否展开
 
     private int circelX, circelY, circelRadius;                       //AQI圆环的横纵坐标、半径

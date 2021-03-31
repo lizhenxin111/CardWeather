@@ -1,0 +1,36 @@
+{
+  "HeWeather6": [
+    {
+      "basic": {
+        "cid": "CN101280101",
+        "location": "广州",
+        "parent_city": "广州",
+        "admin_area": "广东省",
+        "cnty": "中国",
+        "lat": "23.12517738",
+        "lon": "113.28063965",
+        "tz": "+8.00"
+      },
+      "update": {
+        "loc": "2021-03-29 21:52",
+        "utc": "2021-03-29 13:52"
+      },
+      "status": "ok",
+      "now": {
+        "cloud": "91",
+        "cond_code": "100",
+        "cond_txt": "晴",
+        "fl": "28",
+        "hum": "81",
+        "pcpn": "0.0",
+        "pres": "1001",
+        "tmp": "26",
+        "vis": "16",
+        "wind_deg": "180",
+        "wind_dir": "南风",
+        "wind_sc": "2",
+        "wind_spd": "8"
+      }
+    }
+  ]
+}

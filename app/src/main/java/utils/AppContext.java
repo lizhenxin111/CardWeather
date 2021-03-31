@@ -12,6 +12,8 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.blankj.utilcode.util.Utils;
+import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.Logger;
 
 import acitvity.MainActivity;
 
@@ -31,7 +33,7 @@ public class AppContext extends Application {
     @Override
     public void onCreate() {
 
-        if (DEVELOPER_MODE) {
+        /*if (DEVELOPER_MODE) {
             StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
                     .detectDiskReads()
                     .detectDiskWrites()
@@ -46,11 +48,13 @@ public class AppContext extends Application {
                     .penaltyLog()
                     .penaltyDeath()
                     .build());
-        }
+        }*/
 
         super.onCreate();
 
         Utils.init(this);
+
+        Logger.addLogAdapter(new AndroidLogAdapter());
 
         mAppContext = getApplicationContext();
 

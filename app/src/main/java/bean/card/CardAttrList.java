@@ -5,6 +5,10 @@ import java.util.List;
 
 public class CardAttrList {
     private ArrayList<CardAttr> list = null;
+    public int size() {
+        return list.size();
+    }
+
 
     public CardAttrList() {
         list = new ArrayList<>();
@@ -13,6 +17,7 @@ public class CardAttrList {
     public CardAttrList(List<CardAttr> list) {
         this.list = new ArrayList<>(list);
     }
+
 
     public void add(CardAttr attr) {
         list.add(attr);
@@ -44,7 +49,5 @@ public class CardAttrList {
         return list;
     }
 
-    public int size() {
-        return list.size();
-    }
+
 }

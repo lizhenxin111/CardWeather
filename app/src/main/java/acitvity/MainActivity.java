@@ -89,23 +89,25 @@ public class MainActivity extends BaseActivity implements IContract.IView, ICity
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-        if (AppPref.getCity() == null) {
-            Intent intent = new Intent(this, InitActivity.class);
-            startActivityForResult(intent, 1);
-        } else {
-            loadData();
-        }
+//        if (AppPref.getCity() == null) {
+//            Intent intent = new Intent(this, InitActivity.class);
+//            startActivityForResult(intent, 1);
+//        } else {
+//            loadData();
+//        }
+        loadData();
     }
 
     private void loadData() {
-        String city = AppPref.getCity();
+//        String city = AppPref.getCity();
+        String city = "广州";
         mMainPresenter = new MainPreferencr(this, city);
         mMainPresenter.loadAll();
-        mMainPresenter.changeOrder();
+        //mMainPresenter.changeOrder();
 
         mSitesPresenter = new SitesPresenter(this, city);
 
-        toolbarLayout.setTitle(AppPref.getCity());
+        toolbarLayout.setTitle("广州");
     }
 
     @Override
@@ -215,7 +217,7 @@ public class MainActivity extends BaseActivity implements IContract.IView, ICity
     }
 
     @Override
-    public void setWeatherForecast(ArrayList<ForecastItem> list) {
+    public void setWeatherForecast(List<ForecastItem> list) {
         mWeatherForecast.requestData(list);
         /*mWeatherForecast.setOnForecastClickListener(new CardWeatherForecast.OnForecastClickListener() {
             @Override

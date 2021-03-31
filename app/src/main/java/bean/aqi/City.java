@@ -8,20 +8,28 @@ public class City extends Base{
     private String hour;
     private String time;
     private float aqi;
-    private float co;
-    private float co_24h;
+    private float pm2_5;
+    private float pm2_5_24h;
+    private float pm10;
+    private float pm10_24h;
+    private float so2;
+    private float so2_24h;
     private float no2;
     private float no2_24h;
     private float o3;
     private float o3_24h;
     private float o3_8h;
     private float o3_8h_24h;
-    private float pm10;
-    private float pm10_24h;
-    private float pm2_5;
-    private float pm2_5_24h;
-    private float so2;
-    private float so2_24h;
+    private float co;
+    private float co_24h;
+
+
+    public City() {
+    }
+
+    public City(float aqi) {
+        this.aqi = aqi;
+    }
 
     public String getHour() {
         return hour;
